@@ -1,13 +1,16 @@
 import express from "express";
 import AppDataSource from "./data-source";
+import { appRoutes } from "./routes";
 
 const app = express();
 
 const port = process.env.PORT || 4568;
 
-app.get("/ping", (req, res) => {
+app.get("/ping", (_, res) => {
   return res.send("pong");
 });
+
+appRoutes(app);
 
 (async () => {
   await AppDataSource.initialize().catch((err) => {
