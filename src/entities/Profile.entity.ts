@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   OneToOne,
   JoinColumn,
+  Index,
 } from "typeorm";
 import { Address } from "./Address.entity";
 
@@ -21,10 +22,10 @@ export class Profile {
   @Column({ type: "enum", enum: ProfileType })
   profileType: ProfileType;
 
-  @Column()
-  cnpj?: string;
+  @Column({ unique: true, nullable: true, type: "varchar", length: 255 })
+  cnpj?: string | null;
 
-  @Column()
+  @Column({ unique: true })
   cpf: string;
 
   @Column()
@@ -36,12 +37,8 @@ export class Profile {
   @Column()
   phoneNumber: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
-
-  @OneToOne(() => Address)
-  @JoinColumn()
-  address: Address;
 
   @CreateDateColumn()
   createdAt: Date;

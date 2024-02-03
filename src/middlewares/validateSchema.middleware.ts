@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { AnySchema } from "yup";
+import { AppError } from "../errors/appError";
 
 export const validateSchemaMiddleware =
   (schema: AnySchema) =>
@@ -14,9 +15,6 @@ export const validateSchemaMiddleware =
       request.body = validatedData;
       next();
     } catch (err: any) {
-      return response.status(400).json({
-        message: err.errors?.join(", "),
-      });
+      throw new AppError(400, err.errors?.join(", "));
     }
   };
-
