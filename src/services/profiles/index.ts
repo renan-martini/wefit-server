@@ -20,9 +20,12 @@ export class ProfileServices {
       }
     });
 
-    address = this.addressRepository.create({ ...address, profile });
-    await this.addressRepository.save(address);
-
-    return { profile, ...address };
+    const createdAddress = this.addressRepository.create({
+      ...address,
+      profile,
+    });
+    await this.addressRepository.save(createdAddress);
+    const { profile: _excludedProfile, ...returnAddress } = createdAddress;
+    return { ...profile, address: returnAddress };
   }
 }

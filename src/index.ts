@@ -2,7 +2,7 @@ import "express-async-errors";
 import express from "express";
 import AppDataSource from "./data-source";
 import { appRoutes } from "./routes";
-import { errorMiddleware } from "./middlewares/error.middleware";
+import { errorHandler } from "./middlewares/error.middleware";
 
 const app = express();
 app.use(express.json());
@@ -15,7 +15,7 @@ app.get("/ping", (_, res) => {
 
 appRoutes(app);
 
-app.use(errorMiddleware);
+app.use(errorHandler);
 
 (async () => {
   await AppDataSource.initialize().catch((err) => {
@@ -26,3 +26,5 @@ app.use(errorMiddleware);
     console.log(`Escutando na porta ${port}`);
   });
 })();
+
+export default app;
