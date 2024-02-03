@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../errors/appError";
 
-export const errorMiddleware = (
+export const errorHandler = (
   err: any,
   _request: Request,
   response: Response,
@@ -18,6 +18,6 @@ export const errorMiddleware = (
   return response.status(500).json({
     status: "error",
     code: 500,
-    message: "Internal server error",
+    message: err.message,
   });
 };
