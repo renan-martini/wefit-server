@@ -6,7 +6,7 @@ Seja bem vindo ao teste de backend da Wefit.
 
     docker-compose up -D
 
-o docker-compose vai criar um container de um MySQL e você poderá acessar via localhost:3306 e a senha do usuário **root** é **senha_root_123**
+o docker-compose vai criar dois containers de MySQL um para usar a api e o outro é utilizado nos testes. Você poderá acessar via localhost:3306 e a senha do usuário **root** deve ser setada no arquivo `.env`.
 
 ### Para iniciar o servidor express basta executar o seguinte comando:
 
@@ -14,6 +14,12 @@ o docker-compose vai criar um container de um MySQL e você poderá acessar via 
     ou
     yarn start
 
-Depois que concluir seu teste não de enviar o seu código junto a pasta data, nela está salvo o volume do MySQL criado pelo docker.
+### Para rodar os testes basta executar o seguinte comando:
 
-Boa sorte =)
+    npm test
+    ou
+    yarn test
+
+### Para acessar a documentação da api, acesse [Doc](http://localhost:4568/doc):
+
+Obrigado pela oportunidade =)
