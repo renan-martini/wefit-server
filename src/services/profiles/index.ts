@@ -12,6 +12,7 @@ export class ProfileServices {
   static async create({ address, ...data }: InferType<typeof profileSchema>) {
     const profile = this.profileRepository.create(data);
     await this.profileRepository.save(profile).catch((e) => {
+      //Aqui eu trato erros do tipo DUP_ENTRY
       if (e.code == "ER_DUP_ENTRY" || e.errno == 1062) {
         throw new AppError(
           409,
