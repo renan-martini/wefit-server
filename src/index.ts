@@ -1,8 +1,11 @@
+import "express-async-errors";
 import express from "express";
 import AppDataSource from "./data-source";
 import { appRoutes } from "./routes";
+import { errorMiddleware } from "./middlewares/error.middleware";
 
 const app = express();
+app.use(express.json());
 
 const port = process.env.PORT || 4568;
 
@@ -11,6 +14,8 @@ app.get("/ping", (_, res) => {
 });
 
 appRoutes(app);
+
+app.use(errorMiddleware);
 
 (async () => {
   await AppDataSource.initialize().catch((err) => {

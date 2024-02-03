@@ -4,12 +4,13 @@ import { ProfileType } from "../entities/Profile.entity";
 import { addressSchema } from "./address.schema";
 
 export const profileSchema = yup.object().shape({
-  profileType: yup.string().oneOf([ProfileType.PF, ProfileType.PJ]),
+  profileType: yup.string().required().oneOf([ProfileType.PF, ProfileType.PJ]),
   cnpj: yup
     .string()
+    .nullable()
     .when(["profileType"], ([profileType], schema) =>
       schema.transform((ogValue) =>
-        profileType == ProfileType.PJ ? ogValue : ""
+        profileType == ProfileType.PJ ? ogValue : null
       )
     )
     .test(

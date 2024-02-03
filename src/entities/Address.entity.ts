@@ -3,9 +3,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
+import { Profile } from "./Profile.entity";
 
-@Entity("adresses")
+@Entity("addresses")
 export class Address {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -31,6 +34,10 @@ export class Address {
 
   @Column()
   state: string;
+
+  @OneToOne(() => Profile)
+  @JoinColumn()
+  profile: Profile;
 
   @CreateDateColumn()
   createdAt: Date;
