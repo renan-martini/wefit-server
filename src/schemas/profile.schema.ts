@@ -8,11 +8,13 @@ export const profileSchema = yup.object().shape({
   cnpj: yup
     .string()
     .nullable()
+    // Se o tipo do usuario for pf aqui eu seto o cnpj como null
     .when(["profileType"], ([profileType], schema) =>
       schema.transform((ogValue) =>
         profileType == ProfileType.PJ ? ogValue : null
       )
     )
+    // Aqui eu testo o formato do cnpj e se ele é um número válido.
     .test(
       "test-invalid-cnpj",
       "Invalid CNPJ. Must match: 12.123.123/1234-12",
@@ -26,6 +28,7 @@ export const profileSchema = yup.object().shape({
   cpf: yup
     .string()
     .required()
+    // Aqui eu testo o formato do cpf e se ele é um número válido.
     .test(
       "test-invalid-cpf",
       "Invalid CPF. Must match: 123.123.123-12",
